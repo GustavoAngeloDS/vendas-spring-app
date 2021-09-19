@@ -3,10 +3,7 @@ package br.com.vendas.models;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.Instant;
 import java.util.Date;
 
 @Data
@@ -20,7 +17,7 @@ public class Order implements Serializable {
     private Integer id;
 
 
-    private Instant data;
+    private Date data;
 
 //    private Client idClient;;
 //    private OrdemItem idOrdemItem;

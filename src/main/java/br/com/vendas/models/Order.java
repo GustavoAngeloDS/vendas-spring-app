@@ -17,7 +17,7 @@ public class Order implements Serializable {
     private Integer id;
 
 
-    private Date data;
+    private Date date;
 
 //    private Client idClient;;
 //    private OrdemItem idOrdemItem;

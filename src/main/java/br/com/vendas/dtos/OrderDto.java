@@ -11,7 +11,7 @@ public class OrderDto {
 
 
     @NotNull
-    private Date data;
+    private Date date;
     //private Integer idClient;
 }
 

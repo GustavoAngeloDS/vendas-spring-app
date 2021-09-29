@@ -1,21 +1,22 @@
 package br.com.vendas.dtos;
 
-import br.com.vendas.models.Client;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 
 @Data
-public class OrderDto {
+public class ClientDto {
 
-
+    @NotEmpty
     @NotNull
-    private Date date;
+    private String cpf;
 
+    @NotEmpty
     @NotNull
-    private Client client;
+    private String name;
 
+    @NotEmpty
+    @NotNull
+    private String lastname;
 }
-

@@ -1,12 +1,12 @@
 package br.com.vendas.models;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 @Data
@@ -19,5 +19,9 @@ public class Product implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	private String description;
-	
+
+
+	@OneToMany(mappedBy = "order")
+	@JsonIgnore
+	private Set<OrderItem> orderItens = new HashSet<>();
 }

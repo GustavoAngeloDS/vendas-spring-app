@@ -1,5 +1,6 @@
 package br.com.vendas.dtos;
 
+import br.com.vendas.models.Client;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
@@ -12,6 +13,9 @@ public class OrderDto {
 
     @NotNull
     private Date date;
-    //private Integer idClient;
+
+    @NotNull
+    private Client client;
+
 }
 

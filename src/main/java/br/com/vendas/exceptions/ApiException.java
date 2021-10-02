@@ -1,8 +1,9 @@
 package br.com.vendas.exceptions;
 
+import org.springframework.http.HttpStatus;
+
 import java.time.ZonedDateTime;
 
-import org.springframework.http.HttpStatus;
 
 public class ApiException {
 

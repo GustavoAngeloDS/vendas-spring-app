@@ -2,6 +2,7 @@ package br.com.vendas.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Set;
 
 
+@Data
 @Getter
 @Setter
 @NoArgsConstructor
@@ -22,7 +24,6 @@ import java.util.Set;
 @Table(name="client")
 public class Client implements Serializable {
     private static final long serialVersionUID = 1L;
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,10 +34,8 @@ public class Client implements Serializable {
     private String name;
 
     private String lastname;
-
+  
     @OneToMany(mappedBy = "client")
     @JsonIgnore
     private Set<Order> orders = new HashSet<>();
-
-
 }

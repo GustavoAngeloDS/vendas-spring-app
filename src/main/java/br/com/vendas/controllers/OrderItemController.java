@@ -3,7 +3,6 @@ package br.com.vendas.controllers;
 import br.com.vendas.dtos.OrderItemDto;
 import br.com.vendas.models.Order;
 import br.com.vendas.models.OrderItem;
-import br.com.vendas.responses.ResponseOrderItemsByCpf;
 import br.com.vendas.services.OrderItemService;
 import br.com.vendas.services.OrderService;
 
@@ -72,7 +71,7 @@ public class OrderItemController {
     }
      
     @GetMapping("/find-by-cpf/{cpf}")
-    public List<ResponseOrderItemsByCpf> findOrderItemsByCpf(@PathVariable(value = "cpf") String cpf){
-    	return orderItemService.findOrderItemsByCpf(cpf);
+    public ResponseEntity<?> findOrderItemsByCpf(@PathVariable(value = "cpf") String cpf){
+    	return new ResponseEntity<>(orderItemService.findOrderItemsByCpf(cpf), HttpStatus.OK);
     }
 }

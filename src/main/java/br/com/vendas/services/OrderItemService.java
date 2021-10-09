@@ -2,7 +2,8 @@ package br.com.vendas.services;
 
 import br.com.vendas.models.OrderItem;
 import br.com.vendas.repositories.OrderItemRepository;
-import br.com.vendas.responses.ResponseOrderItemsByCpf;
+import br.com.vendas.responses.ResponseOrderItems;
+import br.com.vendas.responses.ResponseOrdersByCpf;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,18 +40,26 @@ public class OrderItemService {
         }
     }
 
-	public List<ResponseOrderItemsByCpf> findOrderItemsByCpf(String cpf) {
-    	List<ResponseOrderItemsByCpf> listOrderItemsResponse = new ArrayList<ResponseOrderItemsByCpf>(); 
-    	List<OrderItem> listOrderItems = orderItemRepository.findOrderItemsByCpf(cpf);
+	public ResponseOrdersByCpf findOrderItemsByCpf(String cpf) {
+    	List<OrderItem> orderItemsList = orderItemRepository.findOrderItemsByCpf(cpf);
+    	List<ResponseOrderItems> responseOrderItemsList = new ArrayList<ResponseOrderItems>(); 
     	
-    	for(OrderItem orderItem : listOrderItems) {
-    		ResponseOrderItemsByCpf responseOrderItem = ResponseOrderItemsByCpf.builder()
-    				.quantity(orderItem.getQuantity())
+    	for(OrderItem orderItem : orderItemsList) {
+    		ResponseOrderItems responseOrderItems = ResponseOrderItems.builder()
+    				.orderId(orderItem.getOrder().getId())
+    				.productId(orderItem.getProduct().getId())
     				.description(orderItem.getProduct().getDescription())
-    				.build();  
-    		
-    		listOrderItemsResponse.add(responseOrderItem);
+    				.quantity(orderItem.getQuantity())
+    				.build();
+    		    		
+    		responseOrderItemsList.add(responseOrderItems);
     	}
-    	return listOrderItemsResponse;
+    	
+    	ResponseOrdersByCpf responseOrderByCpf = ResponseOrdersByCpf.builder()
+    			.orderId(responseOrderItemsList.get(0).getOrderId())
+    			.orderItemsList(responseOrderItemsList)
+    			.build();
+    	
+    	return responseOrderByCpf;
     }
 }

@@ -1,15 +1,13 @@
 package br.com.vendas.services;
 
-import br.com.vendas.models.Order;
 import br.com.vendas.models.OrderItem;
 import br.com.vendas.repositories.OrderItemRepository;
-import br.com.vendas.repositories.OrderRepository;
-import br.com.vendas.repositories.ProductRepository;
+import br.com.vendas.responses.ResponseOrderItemsByCpf;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,53 +21,36 @@ public class OrderItemService {
         return orderItemRepository.findAll();
     }
 
-    public ResponseEntity<?> findById(Integer id) {
+    public OrderItem findById(Integer id) {
         Optional<OrderItem> orderItem = orderItemRepository.findById(id);
-        ResponseEntity<?> response;
-
-        response = orderItem.isPresent() ?
-                new ResponseEntity<>(orderItem.get(), HttpStatus.OK) :
-                new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-        return response;
+        return orderItem.get();
     }
 
-    public ResponseEntity<?> save(OrderItem orderItem){
+    public OrderItem save(OrderItem orderItem){
         OrderItem newOrderItem = orderItemRepository.save(orderItem);
-        return new ResponseEntity<>(newOrderItem, HttpStatus.OK);
+        return newOrderItem;
     }
-
-    public ResponseEntity<?> update(OrderItem orderItem) {
-        Optional<OrderItem> orderItemToUpdate = orderItemRepository.findById(orderItem.getId());
-        ResponseEntity<?> response;
-
-        if(orderItemToUpdate.isPresent()) {
-            response = new ResponseEntity<>(orderItemRepository.save(orderItem), HttpStatus.OK);
-        }
-        else
-            response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-        return response;
-    }
-
-    public ResponseEntity<?> remove(OrderItem orderItem) {
+    
+    public void remove(OrderItem orderItem) {
         Optional<OrderItem> orderToRemove = orderItemRepository.findById(orderItem.getId());
-        ResponseEntity<?> response;
 
         if(orderToRemove.isPresent()) {
             orderItemRepository.delete(orderItem);
-            response = new ResponseEntity<>(HttpStatus.OK);
         }
-        else
-            response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-        return response;
     }
 
-
-    //  Pesquisa por CPF
-    //    public ResponseEntity<?> findByCpf(String cpf) {
-    //
-    //    }
-
+	public List<ResponseOrderItemsByCpf> findOrderItemsByCpf(String cpf) {
+    	List<ResponseOrderItemsByCpf> listOrderItemsResponse = new ArrayList<ResponseOrderItemsByCpf>(); 
+    	List<OrderItem> listOrderItems = orderItemRepository.findOrderItemsByCpf(cpf);
+    	
+    	for(OrderItem orderItem : listOrderItems) {
+    		ResponseOrderItemsByCpf responseOrderItem = ResponseOrderItemsByCpf.builder()
+    				.quantity(orderItem.getQuantity())
+    				.description(orderItem.getProduct().getDescription())
+    				.build();  
+    		
+    		listOrderItemsResponse.add(responseOrderItem);
+    	}
+    	return listOrderItemsResponse;
+    }
 }

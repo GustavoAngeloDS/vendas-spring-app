@@ -1,18 +1,16 @@
 package br.com.vendas.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.*;
-
 import javax.persistence.*;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import java.io.Serializable;
 import java.util.*;
 
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@ToString
 @Entity
 @Table(name="orders")
 public class Order implements Serializable {
@@ -20,16 +18,12 @@ public class Order implements Serializable {
 
     @Id
     @EqualsAndHashCode.Include
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
 
     private Date date;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "client_id", referencedColumnName = "id")
     private Client client;
-
-    @OneToMany(mappedBy = "product")
-    private Set<OrderItem> orderItens = new HashSet<>();
 }

@@ -5,6 +5,7 @@ import br.com.vendas.models.Client;
 import br.com.vendas.services.ClientService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +29,6 @@ public class ClientController {
         Client client = new Client();
         BeanUtils.copyProperties(clientDto, client);
 
-        return clientService.save(client);
+        return new ResponseEntity<>(clientService.save(client), HttpStatus.OK);
     }
 }

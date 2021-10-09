@@ -3,7 +3,6 @@ package br.com.vendas.dtos;
 import br.com.vendas.models.Client;
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 

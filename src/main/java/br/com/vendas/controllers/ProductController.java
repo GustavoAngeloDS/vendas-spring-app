@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,7 +33,7 @@ public class ProductController {
 		Product product = new Product();
 		BeanUtils.copyProperties(productDto, product);		
 		
-		return productService.save(product);
+		return new ResponseEntity<>(productService.save(product), HttpStatus.OK);
 	}
 	
 	@GetMapping
@@ -42,16 +43,17 @@ public class ProductController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<?> findById(@PathVariable(value="id") Integer productId){
-		return productService.findById(productId);
+		return new ResponseEntity<>(productService.findById(productId), HttpStatus.OK);
 	}
 	
 	@DeleteMapping
 	public ResponseEntity<?> remove(@RequestBody Product product){		
-		return productService.remove(product);
+		productService.remove(product);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	@PutMapping
 	public ResponseEntity<?> update(@RequestBody Product product){
-		return productService.update(product);
+		return new ResponseEntity<>(productService.update(product), HttpStatus.OK);
 	}
 }

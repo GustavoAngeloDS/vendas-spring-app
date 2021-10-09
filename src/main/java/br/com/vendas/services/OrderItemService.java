@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -42,24 +43,30 @@ public class OrderItemService {
 
 	public ResponseOrdersByCpf findOrderItemsByCpf(String cpf) {
     	List<OrderItem> orderItemsList = orderItemRepository.findOrderItemsByCpf(cpf);
-    	List<ResponseOrderItems> responseOrderItemsList = new ArrayList<ResponseOrderItems>(); 
+    	ResponseOrdersByCpf responseOrdersByCpf = null; 
     	
-    	for(OrderItem orderItem : orderItemsList) {
-    		ResponseOrderItems responseOrderItems = ResponseOrderItems.builder()
-    				.orderId(orderItem.getOrder().getId())
-    				.productId(orderItem.getProduct().getId())
-    				.description(orderItem.getProduct().getDescription())
-    				.quantity(orderItem.getQuantity())
-    				.build();
-    		    		
-    		responseOrderItemsList.add(responseOrderItems);
+    	if(Objects.nonNull(orderItemsList) && orderItemsList.size() > 0) {
+    		List<ResponseOrderItems> responseOrderItemsList = new ArrayList<ResponseOrderItems>(); 
+        	
+        	for(OrderItem orderItem : orderItemsList) {
+        		ResponseOrderItems responseOrderItems = ResponseOrderItems.builder()
+        				.orderId(orderItem.getOrder().getId())
+        				.productId(orderItem.getProduct().getId())
+        				.description(orderItem.getProduct().getDescription())
+        				.quantity(orderItem.getQuantity())
+        				.build();
+        		    		
+        		responseOrderItemsList.add(responseOrderItems);
+        	}
+        	
+        	ResponseOrdersByCpf ordersByCpf = ResponseOrdersByCpf.builder() 
+        			.orderId(responseOrderItemsList.get(0).getOrderId())
+        			.orderItemsList(responseOrderItemsList)
+        			.build();	
+        	
+        	responseOrdersByCpf = ordersByCpf;
     	}
     	
-    	ResponseOrdersByCpf responseOrderByCpf = ResponseOrdersByCpf.builder()
-    			.orderId(responseOrderItemsList.get(0).getOrderId())
-    			.orderItemsList(responseOrderItemsList)
-    			.build();
-    	
-    	return responseOrderByCpf;
+    	return responseOrdersByCpf;
     }
 }

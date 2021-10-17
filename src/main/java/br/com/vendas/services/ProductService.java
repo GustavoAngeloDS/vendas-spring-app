@@ -43,4 +43,8 @@ public class ProductService {
 		
 		return updatedProduct;
 	}
+
+	public List<Product> findProductByText(String text){
+		return productRepository.findProductByText(text);
+	}
 }

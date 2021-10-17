@@ -31,4 +31,9 @@ public class ClientController {
 
         return new ResponseEntity<>(clientService.save(client), HttpStatus.OK);
     }
+
+    @GetMapping("/search/{text}")
+    public List<Client> findById(@PathVariable(value="text") String text){
+        return clientService.findClientByText(text);
+    }
 }

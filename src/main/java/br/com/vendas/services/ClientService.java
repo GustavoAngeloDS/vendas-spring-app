@@ -20,4 +20,8 @@ public class ClientService {
     public Client save(Client client) {
         return clientRepository.save(client);
     }
+
+    public List<Client> findClientByText(String text){
+        return clientRepository.findClientByText(text);
+    }
 }

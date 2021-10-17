@@ -33,7 +33,7 @@ public class ClientController {
     }
 
     @GetMapping("/search/{text}")
-    public List<Client> findById(@PathVariable(value="text") String text){
+    public List<Client> findByText(@PathVariable(value="text") String text){
         return clientService.findClientByText(text);
     }
 }

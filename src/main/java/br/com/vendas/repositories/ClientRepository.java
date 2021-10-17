@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface ClientRepository extends JpaRepository<Client, Integer> {
 
-    @Query("SELECT c FROM Client c WHERE LOWER(c.name) LIKE %:text% OR LOWER(c.lastname) LIKE %:text% OR c.cpf LIKE %:text%" )
+    @Query("SELECT c FROM Client c WHERE CONCAT (lower(name),' ', lower(lastname)) like %:text% OR c.cpf LIKE %:text%")
     public List<Client> findClientByText(@Param("text") String text);
 }

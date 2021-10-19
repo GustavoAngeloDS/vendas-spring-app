@@ -2,6 +2,7 @@ package br.com.vendas.controllers;
 
 import br.com.vendas.dtos.ClientDto;
 import br.com.vendas.models.Client;
+import br.com.vendas.responses.ErrorResponse;
 import br.com.vendas.services.ClientService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +25,33 @@ public class ClientController {
         return clientService.findAll();
     }
 
-    @PostMapping
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findById(@PathVariable(value = "id") Integer id) {
+        return new ResponseEntity<>(clientService.findById(id), HttpStatus.OK);
+    }
+
+    @PostMapping(produces = "application/json")
     public ResponseEntity<?> save(@RequestBody @Valid ClientDto clientDto) {
         Client client = new Client();
         BeanUtils.copyProperties(clientDto, client);
 
-        return new ResponseEntity<>(clientService.save(client), HttpStatus.OK);
+        Client clientSave = clientService.save(client);
+
+        if (clientSave.getId() != null) {
+            return new ResponseEntity<>(clientSave, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(ErrorResponse.builder().message("Já existe um cliente com este CPF.").build(), HttpStatus.NOT_FOUND);
+    }
+
+    @PutMapping
+    public ResponseEntity<?> update(@RequestBody Client client) {
+        return new ResponseEntity<>(clientService.update(client), HttpStatus.OK);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<?> remove(@RequestBody Client client) {
+        clientService.remove(client);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

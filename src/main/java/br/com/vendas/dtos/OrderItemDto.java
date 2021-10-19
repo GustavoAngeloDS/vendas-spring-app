@@ -7,8 +7,11 @@ import lombok.Data;
 @Data
 public class OrderItemDto {
 
-    private Integer quantity;
+    private Integer qtdade;
+
     private Order order;
+
     private Product product;
 
 }
+

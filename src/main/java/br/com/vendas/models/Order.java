@@ -1,16 +1,20 @@
 package br.com.vendas.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.*;
+
 import javax.persistence.*;
-
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 import java.io.Serializable;
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@ToString
 @Entity
 @Table(name="orders")
 public class Order implements Serializable {
@@ -21,9 +25,21 @@ public class Order implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private Date date;
+
+    //@JsonManagedReference
+    @Getter
+    @Setter
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER, mappedBy = "id.order")
+    private Set<OrderItem> items = new HashSet<>();
+
+
 
     @ManyToOne
     @JoinColumn(name = "client_id", referencedColumnName = "id")
     private Client client;
+
+    //    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER, mappedBy = "order")
+//    private Set<OrderItem> items = new HashSet<>();
 }

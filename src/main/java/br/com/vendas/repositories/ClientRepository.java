@@ -10,4 +10,6 @@ public interface ClientRepository extends JpaRepository<Client, Integer> {
 
     @Query("SELECT c FROM Client c WHERE c.cpf = :cpf and c.id <> :id")
     public Optional<Client> findClientByCpf(String cpf, Integer id);
+
+    public Client findBycpf(String cpf);
 }

@@ -1,0 +1,11 @@
+INSERT INTO CLIENTS ( cpf, lastname, name) VALUES ( '12345678999', 'André' , 'Palmiani');
+INSERT INTO CLIENTS ( cpf, lastname, name) VALUES ( '89632145877', 'Jão' , 'Miurra');
+INSERT INTO CLIENTS ( cpf, lastname, name) VALUES ( '78965412302', 'Maria' , 'Caliane');
+INSERT INTO CLIENTS ( cpf, lastname, name) VALUES ( '35715978952', 'Anna Liz' , 'Marinach');
+INSERT INTO PRODUCTS ( description) VALUES ('Macbook Pro 16 pol');
+INSERT INTO PRODUCTS ( description) VALUES ('Acer Nitro 15.6 pol');
+INSERT INTO PRODUCTS ( description) VALUES ('Smart TV 55 pol Philco');
+INSERT INTO PRODUCTS ( description) VALUES ('Smart TV 60 pol LG');
+INSERT INTO PRODUCTS ( description) VALUES ('Celular LG 123');
+INSERT INTO PRODUCTS ( description) VALUES ('Celular Sansumg N20');
+INSERT INTO PRODUCTS ( description) VALUES ('Celular Ipnone 13 Ching Ling');

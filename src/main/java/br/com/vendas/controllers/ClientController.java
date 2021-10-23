@@ -58,4 +58,9 @@ public class ClientController {
         else
             return new ResponseEntity<>(ErrorResponse.builder().message(returnMessage).build(), HttpStatus.NOT_ACCEPTABLE);
     }
+
+    @GetMapping("/search/{text}")
+    public List<Client> findByText(@PathVariable(value="text") String text){
+        return clientService.findClientByText(text);
+    }
 }

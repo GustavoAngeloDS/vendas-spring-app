@@ -60,4 +60,8 @@ public class ClientService {
         }
         return "Erro ao encontrar o cliente: " + client.getName();
     }
+
+    public List<Client> findClientByText(String text){
+        return clientRepository.findClientByText(text);
+    }
 }

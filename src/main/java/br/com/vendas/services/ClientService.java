@@ -2,6 +2,7 @@ package br.com.vendas.services;
 
 import br.com.vendas.models.Client;
 import br.com.vendas.repositories.ClientRepository;
+import br.com.vendas.responses.ResponseOrdersByCpf;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,8 @@ public class ClientService {
 
     @Autowired
     private ClientRepository clientRepository;
+    @Autowired
+    private OrderItemService orderItemService;
 
     public Optional<Client> findById(Integer id) {
         return clientRepository.findById(id);
@@ -43,11 +46,22 @@ public class ClientService {
         return clientUpdate;
     }
 
-    public void remove(Client client) {
+    public String remove(Client client) {
         Optional<Client> optClient = clientRepository.findById(client.getId());
 
         if (optClient.isPresent()) {
-            clientRepository.delete(client);
+            ResponseOrdersByCpf responseOrdersByCpf = orderItemService.findOrderItemsByCpf(client.getCpf());
+            if (responseOrdersByCpf == null) {
+                clientRepository.delete(client);
+                return "";
+            } else {
+                return "Cliente não pode ser removido pois há pedidos vinculados ao mesmo.";
+            }
         }
+        return "Erro ao encontrar o cliente: " + client.getName();
+    }
+
+    public List<Client> findClientByText(String text){
+        return clientRepository.findClientByText(text);
     }
 }

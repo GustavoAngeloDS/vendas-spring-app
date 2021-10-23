@@ -56,4 +56,9 @@ public class ProductController {
 	public ResponseEntity<?> update(@RequestBody Product product){
 		return new ResponseEntity<>(productService.update(product), HttpStatus.OK);
 	}
+
+	@GetMapping("/search/{text}")
+	public List<Product> findByText(@PathVariable(value="text") String text){
+		return productService.findProductByText(text);
+	}
 }

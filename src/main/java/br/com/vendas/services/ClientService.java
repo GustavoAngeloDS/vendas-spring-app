@@ -50,4 +50,8 @@ public class ClientService {
             clientRepository.delete(client);
         }
     }
+
+    public List<Client> findClientByText(String text){
+        return clientRepository.findClientByText(text);
+    }
 }

@@ -54,4 +54,9 @@ public class ClientController {
         clientService.remove(client);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping("/search/{text}")
+    public List<Client> findByText(@PathVariable(value="text") String text){
+        return clientService.findClientByText(text);
+    }
 }

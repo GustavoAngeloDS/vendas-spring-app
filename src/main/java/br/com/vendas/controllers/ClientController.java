@@ -51,8 +51,12 @@ public class ClientController {
 
     @DeleteMapping
     public ResponseEntity<?> remove(@RequestBody Client client) {
-        clientService.remove(client);
-        return new ResponseEntity<>(HttpStatus.OK);
+        String returnMessage = clientService.remove(client);
+
+        if (returnMessage.equals(""))
+            return new ResponseEntity<>(HttpStatus.OK);
+        else
+            return new ResponseEntity<>(ErrorResponse.builder().message(returnMessage).build(), HttpStatus.NOT_ACCEPTABLE);
     }
 
     @GetMapping("/search/{text}")

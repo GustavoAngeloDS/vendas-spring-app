@@ -1,0 +1,364 @@
+{
+	"info": {
+		"_postman_id": "55d637b6-e018-4242-979b-3caa105e041f",
+		"name": "Trabalho",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "List Order",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}orders",
+							"host": [
+								"{{host}}orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Order By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}orders/1",
+							"host": [
+								"{{host}}orders"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Order By CPF",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}orders/cpf/12345678999",
+							"host": [
+								"{{host}}orders"
+							],
+							"path": [
+								"cpf",
+								"12345678999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Order",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"id\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}orders/",
+							"host": [
+								"{{host}}orders"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"client\": {\r\n                \"id\": 1 \r\n    } ,\r\n    \"items\": [\r\n                {\r\n                    \"qtdade\": 5,\r\n                    \"product\": {\r\n                        \"id\":  1\r\n                        }\r\n                },\r\n                {\r\n                    \"qtdade\": 1,\r\n                    \"product\": {\r\n                        \"id\":  2\r\n                        }\r\n                },\r\n                {\r\n                    \"qtdade\": 2,\r\n                    \"product\": {\r\n                        \"id\":  3\r\n                        }\r\n                },\r\n                {\r\n                    \"qtdade\": 3,\r\n                    \"product\": {\r\n                        \"id\":  5\r\n                        }\r\n                }\r\n            ] \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}orders",
+							"host": [
+								"{{host}}orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Order",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"client\": {\r\n                \"id\": 1 \r\n    } ,\r\n    \"items\": [\r\n                {\r\n                    \"qtdade\": 25,\r\n                    \"product\": {\r\n                        \"id\":  5\r\n                        }\r\n                },\r\n                {\r\n                    \"qtdade\": 24,\r\n                    \"product\": {\r\n                        \"id\":  3\r\n                        }\r\n                },\r\n                {\r\n                    \"qtdade\": 2,\r\n                    \"product\": {\r\n                        \"id\":  6\r\n                        }\r\n                },\r\n                {\r\n                    \"qtdade\": 3,\r\n                    \"product\": {\r\n                        \"id\":  5\r\n                        }\r\n                }\r\n            ] \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}orders",
+							"host": [
+								"{{host}}orders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "OrderItem",
+			"item": [
+				{
+					"name": "List OrderItens",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}orderitems",
+							"host": [
+								"{{host}}orderitems"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "List Product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}products",
+							"host": [
+								"{{host}}products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Product By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}products/6",
+							"host": [
+								"{{host}}products"
+							],
+							"path": [
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\" : 1,\r\n    \"description\": \"Imac 13 pol\"\r\n   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}products",
+							"host": [
+								"{{host}}products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\" : 8\r\n   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}products",
+							"host": [
+								"{{host}}products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Imac Fake Dell Mocosoft\"\r\n   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}products",
+							"host": [
+								"{{host}}products"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Client",
+			"item": [
+				{
+					"name": "List Client By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}clients/5",
+							"host": [
+								"{{host}}clients"
+							],
+							"path": [
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Client Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}clients",
+							"host": [
+								"{{host}}clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Client",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n    {\r\n    \"cpf\": \"98765432173\",\r\n    \"name\": \"Carlos\",\r\n    \"lastname\": \"Borrachxa\"\r\n    }\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}clients",
+							"host": [
+								"{{host}}clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Client",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n    {\r\n         \"id\": 5\r\n    }\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}clients",
+							"host": [
+								"{{host}}clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Client",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n    {\r\n        \"id\": 5,\r\n        \"cpf\": \"24242424241\",\r\n        \"name\": \"Carlos Manezianhno\",\r\n        \"lastname\": \"Borrachxa update\"\r\n    }\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}clients",
+							"host": [
+								"{{host}}clients"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

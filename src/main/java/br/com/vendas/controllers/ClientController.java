@@ -46,7 +46,12 @@ public class ClientController {
 
     @PutMapping
     public ResponseEntity<?> update(@RequestBody Client client) {
-        return new ResponseEntity<>(clientService.update(client), HttpStatus.OK);
+        Client clientSave = clientService.update(client);
+        if (clientSave.getId() != null) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(ErrorResponse.builder().message("Cliente não encontrado,").build(), HttpStatus.NOT_FOUND);
+        }
     }
 
     @DeleteMapping

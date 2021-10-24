@@ -1,7 +1,9 @@
 package br.com.vendas.services;
 
 import br.com.vendas.models.Client;
+import br.com.vendas.models.Order;
 import br.com.vendas.repositories.ClientRepository;
+import br.com.vendas.repositories.OrderRepository;
 import br.com.vendas.responses.ResponseOrdersByCpf;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +17,7 @@ public class ClientService {
     @Autowired
     private ClientRepository clientRepository;
     @Autowired
-    private OrderItemService orderItemService;
+    private OrderRepository orderRepository;
 
     public Optional<Client> findById(Integer id) {
         return clientRepository.findById(id);
@@ -50,8 +52,9 @@ public class ClientService {
         Optional<Client> optClient = clientRepository.findById(client.getId());
 
         if (optClient.isPresent()) {
-            ResponseOrdersByCpf responseOrdersByCpf = orderItemService.findOrderItemsByCpf(client.getCpf());
-            if (responseOrdersByCpf == null) {
+            //ResponseOrdersByCpf responseOrdersByCpf = orderItemService.findOrderItemsByCpf(client.getCpf());
+            List<Order> listOrder = orderRepository.findByclient_id(client.getId());
+            if (listOrder.size() == 0) {
                 clientRepository.delete(client);
                 return "";
             } else {

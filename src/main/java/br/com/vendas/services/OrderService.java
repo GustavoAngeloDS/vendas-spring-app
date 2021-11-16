@@ -96,12 +96,15 @@ public class OrderService {
 
 
     //Delete a Order
+    @Transactional
     public ResponseEntity<?> remove(Order order) {
+        Order orderToDelete = new Order();
+        orderToDelete.setId(order.getId());
         Optional<Order> orderToRemove = orderRepository.findById(order.getId());
         ResponseEntity<?> response;
 
         if(orderToRemove.isPresent()) {
-            orderRepository.delete(order);
+            orderRepository.delete(orderToDelete);
             response = new ResponseEntity<>(HttpStatus.OK);
         }
         else

@@ -1,12 +1,15 @@
 package br.com.vendas.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.vendas.models.OrderItem;
 import br.com.vendas.models.Product;
+import br.com.vendas.repositories.OrderItemRepository;
 import br.com.vendas.repositories.ProductRepository;
 
 @Service
@@ -14,6 +17,9 @@ public class ProductService {
 
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 	
 	public Optional<Product> findById(Integer id) {
 		return productRepository.findById(id);
@@ -32,6 +38,21 @@ public class ProductService {
 		
 		if(productToRemove.isPresent())
 			productRepository.delete(product);
+	}
+	
+	public Boolean isProductInActiveOrder(Integer productId) {
+		List<OrderItem> allOrders = new ArrayList<OrderItem>();
+		allOrders = orderItemRepository.findAll();
+		
+		Boolean isProducInActiveOrder = false;
+		
+		for(OrderItem orderItem : allOrders) {
+			if(orderItem.getProduct().getId() == productId) {
+				isProducInActiveOrder = true;
+			}
+		}
+		
+		return isProducInActiveOrder;
 	}
 	
 	public Product update(Product product) {

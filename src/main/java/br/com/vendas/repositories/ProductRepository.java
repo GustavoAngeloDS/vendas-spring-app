@@ -9,6 +9,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Integer> {
-    @Query("SELECT p FROM Product p WHERE LOWER(p.description) LIKE %:text%")
+	@Query("SELECT p FROM Product p WHERE LOWER(p.description) LIKE %:text%")
     public List<Product> findProductByText(@Param("text") String text);
 }

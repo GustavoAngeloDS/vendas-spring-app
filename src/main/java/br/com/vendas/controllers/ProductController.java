@@ -48,8 +48,11 @@ public class ProductController {
 	
 	@DeleteMapping
 	public ResponseEntity<?> remove(@RequestBody Product product){		
-		productService.remove(product);
-		return new ResponseEntity<>(HttpStatus.OK);
+		if(!productService.isProductInActiveOrder(product.getId())) {
+			productService.remove(product);
+			return new ResponseEntity<>(HttpStatus.OK);
+		}else
+			return new ResponseEntity<>("O produto está sendo usado em uma Ordem ativa e não pode ser removido", HttpStatus.FORBIDDEN);
 	}
 	
 	@PutMapping

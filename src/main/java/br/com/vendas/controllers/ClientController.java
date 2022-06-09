@@ -48,7 +48,7 @@ public class ClientController {
     public ResponseEntity<?> update(@RequestBody Client client) {
         Client clientSave = clientService.update(client);
         if (clientSave.getId() != null) {
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(clientSave, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(ErrorResponse.builder().message("Cliente não encontrado,").build(), HttpStatus.NOT_FOUND);
         }

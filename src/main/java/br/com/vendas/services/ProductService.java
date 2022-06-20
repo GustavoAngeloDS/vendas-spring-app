@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import br.com.vendas.exceptions.VendasException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,11 +34,15 @@ public class ProductService {
 		return productRepository.save(product);
 	}
 	
-	public void remove(Product product) {
+	public String remove(Product product) {
+		if(isProductInActiveOrder(product.getId()))
+			return VendasException.PRODUCT_IN_ACTIVE_ORDER;
+
 		Optional<Product> productToRemove = productRepository.findById(product.getId());
-		
 		if(productToRemove.isPresent())
 			productRepository.delete(product);
+
+		return "";
 	}
 	
 	public Boolean isProductInActiveOrder(Integer productId) {

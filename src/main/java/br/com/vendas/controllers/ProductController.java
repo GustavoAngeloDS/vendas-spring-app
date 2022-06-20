@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import br.com.vendas.responses.ErrorResponse;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,12 +48,12 @@ public class ProductController {
 	}
 	
 	@DeleteMapping
-	public ResponseEntity<?> remove(@RequestBody Product product){		
-		if(!productService.isProductInActiveOrder(product.getId())) {
-			productService.remove(product);
+	public ResponseEntity<?> remove(@RequestBody Product product){
+		String response = productService.remove(product);
+		if(response.equals("")) {
 			return new ResponseEntity<>(HttpStatus.OK);
 		}else
-			return new ResponseEntity<>("O produto está sendo usado em uma Ordem ativa e não pode ser removido", HttpStatus.FORBIDDEN);
+			return new ResponseEntity<>(ErrorResponse.builder().message(response).build(), HttpStatus.FORBIDDEN);
 	}
 	
 	@PutMapping
